@@ -1,0 +1,23 @@
+name: Unzip Files
+on:
+  push:
+    branches: [main, master]
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Unzip
+        run: unzip namafile.zip -d ./ && rm wibuku.zip
+        
+      - name: Push hasil unzip
+        run: |
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+          git add .
+          git commit -m "Auto unzip"
+          git push
